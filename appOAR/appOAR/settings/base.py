@@ -40,18 +40,14 @@ BASE_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     "crispy_bootstrap4",
-    
-    
 ]
+LOCAL_APPS=[]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"     
-LOCAL_APPS=[
-    'maintenance_management',
-]
-THIRD_APPS=[
-    'rest_framework', #aplicacion de terceros 
-    'simple_history', # simple history
-]
+THIRD_APPS=['maintenance_management']
+    #'rest_framework', #aplicacion de terceros 
+    #'simple_history', # simple history
+
 INSTALLED_APPS= BASE_APPS + LOCAL_APPS + THIRD_APPS
 
 MIDDLEWARE = [
@@ -69,7 +65,7 @@ ROOT_URLCONF = 'appOAR.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['../appOAR/templates'],
+        'DIRS': [''],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,10 +130,11 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ## Email de configuración.
+"""
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend" # Para enviar correos con gmail
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_USE_TLS=True
 EMAIL_PORT=587  ## Puerto para conectarse a GMAIL
 EMAIL_HOST_USER="gerencia.greenriver@gmail.com"   ### Correo del remitente
 EMAIL_HOST_PASSWORD="xdyo ddqt cxbw jrdf"    #### Contraseña del email del remitente
-
+"""
