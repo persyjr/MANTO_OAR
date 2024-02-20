@@ -5,7 +5,7 @@ from django.conf import settings
 class TypeMaintenance(models.TextChoices):
     PREVENTIVO = 'PM', 'Preventivo'
     CORRECTIVO = 'CM', 'Correctivo'
-    OVERHAULL = 'OV', 'Overhaull'
+    OVERHAUL = 'OV', 'Overhaul'
 
 class Tools(models.Model):
     typeMaintenance = models.CharField(max_length=10, choices=TypeMaintenance.choices)
@@ -23,9 +23,8 @@ class Tools(models.Model):
         verbose_name_plural='tools'
 
 class StateEnum(models.TextChoices):
-    RECIBIDO = 'RC', 'Recibido'
-    MANTENIMIENTO = 'MTO', 'En Mantenimiento'
-    ENTREGADO = 'EN', 'Entregado'
+    ABIERTA = 'AB', 'Abierta'
+    CERRADA = 'CR', 'Cerrada'
 
 class WorkOrder(models.Model):
     name = models.CharField(max_length=200, blank=True)
