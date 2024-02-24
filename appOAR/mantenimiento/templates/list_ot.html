@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+
+    <meta charset=utf-8 />
+
+  </head>
+  <body>
+    
+    <div class="card">
+      <div>
+        <a class="btn btn-primary" href="{% url 'mantenimiento:add_ordendetrabajo_view' %}">AGREGAR OT</a>
+      </div>
+      <div class="card-body">
+        <table id="example" class="display table" cellspacing="0" width="100%">
+          <thead class="thead-light">
+            <tr>
+              <th>Estado</th>
+              <th>Consecutivo</th>
+              <th>Fecha Creacion</th>
+              <th>Fecha Cierre</th>
+              <th>Lugar</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Estado</th>
+              <th>Consecutivo</th>
+              <th>Fecha Creacion</th>
+              <th>Fecha Cierre</th>
+              <th>Lugar</th>
+              <th>Acciones</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% if object_list %}
+                  {% for orden in object_list %}
+                      <tr>
+                        <td>{{orden.estado}}</td>
+                        <td>{{orden.consecutivo}}</td>
+                        <td>{{orden.fecha_creacion}}</td>
+                        <td>{{orden.fecha_cierre}}</td>
+                        <td>{{orden.lugar}}</td>
+                        <td>
+                          <a class="btn btn-primary"  href="{% url 'mantenimiento:delete_ordendetrabajo_view' orden.id %}">ELIMINAR</a>
+                          <a class="btn btn-success"  href="{% url 'mantenimiento:update_ordendetrabajo_view' orden.id %}">EDITAR</a>
+                        </td>
+                      </tr>
+                  {% endfor %}
+                  {% else %}
+                      <p> no hay registros</p> 
+                  {% endif %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+  </body>
+
+</html>
+<style>
+.cb-dropdown-wrap {
+  max-height: 80px; /* At most, around 3/4 visible items. */
+  position: relative;
+  height: 23px;
+}
+
+.cb-dropdown,.cb-dropdown li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cb-dropdown {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #888;
+}
+
+/* For selected filter. */
+.active .cb-dropdown {
+  background: white;
+}
+
+.cb-dropdown-wrap:hover .cb-dropdown {
+  height: 80px;
+  overflow: auto;
+  transition: 0.2s height ease-in-out;
+}
+
+/* For selected items. */
+.cb-dropdown li.active {
+  background: lightgray;
+}
+
+.cb-dropdown li label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  line-height: 19px; /* Match height of .cb-dropdown-wrap */
+
+}
+
+.cb-dropdown li label > input {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 16px;
+
+}
+
+.cb-dropdown li label > span {
+  display: block;
+  margin-left: 3px;
+  margin-right: 20px; /* At least, width of the checkbox. */
+  font-family: sans-serif;
+  font-size: 0.8em;
+  font-weight: normal;
+  text-align: left;
+
+}
+
+/* This fixes the vertical aligning of the sorting icon. */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+  background-position: 100% 10px;
+}
+
+.content-wrpr ul, .content-wrpr ol { /*nkim 010419*/
+		margin-left: 0px !important;
+		width:85%;
+}
+
+</style>
+
+<script>
+    
+$(document).ready(function() {
+
+  function cbDropdown(column) {
+    return $('<ul>', {
+      'class': 'cb-dropdown border-light rounded'
+    }).appendTo($('<div>', {
+      'class': 'cb-dropdown-wrap'
+    }).appendTo(column));
+
+  }
+
+  $('#example').DataTable({
+    initComplete: function() {
+      console.log('ingresando')
+      console.log(this)
+      this.api().columns([0,1,2,3,4]).every(function() {
+        var column = this;
+        var column2=$(column.header())
+        console.log('esto es lo que ingresa')
+        console.log(typeof(column2))
+        console.log(column2)
+        
+        
+        var ddmenu = cbDropdown(column2)
+          .on('change', ':checkbox', function() {
+            var active;
+            var vals = $(':checked', ddmenu).map(function(index, element) {
+              active = true;
+              return $.fn.dataTable.util.escapeRegex($(element).val());
+            }).toArray().join('|');
+
+            column
+              .search(vals.length > 0 ? '^(' + vals + ')$' : '', true, false)
+              .draw();
+
+            // Highlight the current item if selected.
+            if (this.checked) {
+              $(this).closest('li').addClass('active');
+            } else {
+              $(this).closest('li').removeClass('active');
+            }
+
+            // Highlight the current filter if selected.
+            var active2 = ddmenu.parent().is('.active');
+            if (active && !active2) {
+              ddmenu.parent().addClass('active');
+            } else if (!active && active2) {
+              ddmenu.parent().removeClass('active');
+            }
+          });
+
+        column.data().unique().sort().each(function(d, j) {
+          var // wrapped
+            $label = $('<label>'),
+            $text = $('<span>', {
+              text: d
+            }),
+            $cb = $('<input>', {
+              type: 'checkbox',
+              value: d
+            });
+
+          $text.appendTo($label);
+          $cb.appendTo($label);
+
+          ddmenu.append($('<li>').append($label));
+        });
+      });
+    }
+  });
+});
+
+
+</script>
