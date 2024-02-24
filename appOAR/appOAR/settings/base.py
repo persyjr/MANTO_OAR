@@ -44,7 +44,7 @@ BASE_APPS = [
 LOCAL_APPS=[]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"     
-THIRD_APPS=['maintenance_management']
+THIRD_APPS=['mantenimiento']
     #'rest_framework', #aplicacion de terceros 
     #'simple_history', # simple history
 
