@@ -12,6 +12,8 @@
     <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
     <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <meta charset=utf-8 />
 
   </head>
@@ -19,7 +21,7 @@
     
     <div class="card">
       <div>
-        <a class="btn btn-primary" href="{% url 'mantenimiento:add_ordendetrabajo_view' %}">AGREGAR OT</a>
+        <a class="btn btn-primary" href="{% url 'mantenimiento:add_ordendetrabajo_view' %}">Agregar OT</a>
       </div>
       <div class="card-body">
         <table id="example" class="display table" cellspacing="0" width="100%">
@@ -53,8 +55,9 @@
                         <td>{{orden.fecha_cierre}}</td>
                         <td>{{orden.lugar}}</td>
                         <td>
-                          <a class="btn btn-primary"  href="{% url 'mantenimiento:delete_ordendetrabajo_view' orden.id %}">ELIMINAR</a>
-                          <a class="btn btn-success"  href="{% url 'mantenimiento:update_ordendetrabajo_view' orden.id %}">EDITAR</a>
+                          <a class="btn btn-danger"  href="{% url 'mantenimiento:delete_ordendetrabajo_view' orden.id %}"><i class="fa fa-trash"></i></a>
+                          <a class="btn btn-success"  href="{% url 'mantenimiento:update_ordendetrabajo_view' orden.id %}"><i class="fa fa-refresh"></i></a>
+                          <a class="btn btn-primary"  href=""><i class="fa fa-eye"></i></a>
                         </td>
                       </tr>
                   {% endfor %}
